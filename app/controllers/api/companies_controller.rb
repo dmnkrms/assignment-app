@@ -3,16 +3,19 @@ module Api
     include ActionController::HttpAuthentication::Basic::ControllerMethods
     http_basic_authenticate_with name: "user", password:"1234", except: [:index, :show]
 
+    # GET /companies
     def index
-      companies = Company.order('created_at DESC')
+      companies = Company.order('created_at ASC')
       render json: {status: 'SUCCESS', message: 'Loaded companies list', data:companies}, status: :ok
     end
 
+    # GET /companies/:id
     def show
       company = Company.find(params[:id])
-      render json: {status: 'SUCCESS', message: 'Loaded single company by id', data:company}, status: :ok
+      render json: {status: 'SUCCESS', message: 'Loaded single company by id', data:company, owners:company.owners}, status: :ok
     end
 
+    # POST /companies
     def create
       company = Company.new(company_params)
       if company.save
@@ -22,12 +25,14 @@ module Api
       end
     end
 
+    # DELETE /companies/:id
     def destroy
       company = Company.find(params[:id])
       company.destroy
       render json: {status: 'SUCCESS', message: 'Company deleted', data:company}, status: :ok
     end
 
+    # PATCH/PUT /companies/:id
     def update
       company = Company.find(params[:id])
       if company.update_attributes(company_params)
@@ -38,7 +43,7 @@ module Api
     end
 
     private
-    #define permited request params for creating a new company and updating existing one
+    # Only allow a trusted parameter "white list" through.
     def company_params
         params.permit(:name, :address, :city, :country, :email, :phonenumber)
     end
