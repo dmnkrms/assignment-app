@@ -5,7 +5,7 @@ module Api
 
     # GET /companies
     def index
-      companies = Company.order('created_at ASC')
+      companies = Company.order('name ASC')
       render json: {status: 'SUCCESS', message: 'Loaded companies list', data:companies}, status: :ok
     end
 

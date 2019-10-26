@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import companyService from "../services/Companies";
-import Notification from './Notification';
-import {Link} from 'react-router-dom';
+import Notification from "./Notification";
+import { Link } from "react-router-dom";
+import { Icon, Header, Divider, Card, Button } from "semantic-ui-react";
 
 const CompanyAddForm = () => {
   const emptyCompany = {
@@ -22,16 +23,12 @@ const CompanyAddForm = () => {
       .create(newCompany)
       .then(request => {
         setNotification(`New company added: '${request.data.name}'`);
-        setTimeout(() => {
-          setNotification(null);
-        }, 5000);
         setNewCompany(emptyCompany);
       })
       .catch(err => {
         console.log(err);
       });
   };
-
 
   const handleNewCompanyChange = event => {
     const value = event.target.value;
@@ -42,78 +39,96 @@ const CompanyAddForm = () => {
   };
 
   return (
-    <div>
-    <Notification message={notification}/>
-    <Link to={"/"}>
-          <button>Home</button>
-        </Link>
-    <form onSubmit={createCompany}>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={newCompany.name}
-          onChange={handleNewCompanyChange}
-          placeholder="Name..."
-          required
-        />
-      </label>
-      <label>
-        City:
-        <input
-          type="text"
-          name="city"
-          value={newCompany.city}
-          onChange={handleNewCompanyChange}
-          placeholder="City..."
-          required
-        />
-      </label>
-      <label>
-        Address:
-        <input
-          type="text"
-          name="address"
-          value={newCompany.address}
-          onChange={handleNewCompanyChange}
-          placeholder="Address..."
-          required
-        />
-      </label>
-      <label>
-        Country:
-        <input
-          type="text"
-          name="country"
-          value={newCompany.country}
-          onChange={handleNewCompanyChange}
-          placeholder="Country..."
-          required
-        />
-      </label>
-      <label>
-        E-mail:
-        <input
-          type="text"
-          name="email"
-          value={newCompany.email}
-          onChange={handleNewCompanyChange}
-          placeholder="company@email.com"
-        />
-      </label>
-      <label>
-        Phone number:
-        <input
-          type="text"
-          name="phonenumber"
-          value={newCompany.phonenumber}
-          onChange={handleNewCompanyChange}
-          placeholder="Phone number..."
-        />
-      </label>
-      <input type="submit" value="Submit" />
-    </form>
+    <div className="CompanyAddFrom">
+      <Divider />
+      <Link to={"/"}>
+        <Button basic size="tiny">
+          <Icon name="arrow left" />
+          Go back
+        </Button>
+      </Link>
+      <Header as="h1">
+        <Header.Content>Add a new company</Header.Content>
+      </Header>
+      <Notification message={notification} />
+      <Card centered fluid>
+        <Card.Content>
+          <Card.Meta>Create a new company by filling out the fields</Card.Meta>
+          <Card.Description>
+            <form className="ui form" onSubmit={createCompany}>
+              <div className="required field">
+                <label>Company name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={newCompany.name}
+                  onChange={handleNewCompanyChange}
+                  placeholder="Name"
+                  required
+                />
+              </div>
+              <div className="required field">
+                <label>City</label>
+                <input
+                  type="text"
+                  name="city"
+                  value={newCompany.city}
+                  onChange={handleNewCompanyChange}
+                  placeholder="City"
+                  required
+                />
+              </div>
+              <div className="required field">
+                <label>Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={newCompany.address}
+                  onChange={handleNewCompanyChange}
+                  placeholder="Address"
+                  required
+                />
+              </div>
+              <div className="required field">
+                <label>Country</label>
+                <input
+                  type="text"
+                  name="country"
+                  value={newCompany.country}
+                  onChange={handleNewCompanyChange}
+                  placeholder="Country"
+                  required
+                />
+              </div>
+              <div className="field">
+                <label>E-mail</label>
+                <input
+                  type="text"
+                  name="email"
+                  value={newCompany.email}
+                  onChange={handleNewCompanyChange}
+                  placeholder="company@email.com"
+                />
+              </div>
+              <div className="field">
+                <label>Phone number</label>
+                <input
+                  type="text"
+                  name="phonenumber"
+                  value={newCompany.phonenumber}
+                  onChange={handleNewCompanyChange}
+                  placeholder="Phone number"
+                />
+              </div>
+              <div className="FormButton">
+                <button type="submit" className="ui button">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </Card.Description>
+        </Card.Content>
+      </Card>
     </div>
   );
 };

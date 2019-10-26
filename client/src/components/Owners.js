@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import Button from "./Button";
 import ownersService from "../services/Owners";
+import {
+  Grid,
+  Icon,
+  Label,
+  Form,
+  Button,
+} from "semantic-ui-react";
 
 const Owners = ({ companyid, owners, setOwners }) => {
   const [addOwnerForm, setAddOwnerForm] = useState(false);
@@ -38,34 +44,61 @@ const Owners = ({ companyid, owners, setOwners }) => {
   };
 
   return (
-    <div>
-      {addOwnerForm ? (
-        <div>
-          <form onSubmit={addOwner}>
-            <label>
-              Name:
-              <input type="text" name="name" placeholder="Name..." required />
-            </label>
-            <input type="submit" value="Add"/>
-          </form>
-          <Button onClick={() => handleAddOwnerForm()} text="x" />
-        </div>
-      ) : (
-        <Button
-          onClick={() => handleAddOwnerForm()}
-          text="Add beneficial owner"
-        />
-      )}
-
-      {owners.map(owner => (
-        <li key={owner.id}>
-          {owner.name}
-          <Button
-            onClick={() => deleteOwner(companyid, owner.id, owner.name)}
-            text="Delete"
-          />
-        </li>
-      ))}
+    <div className="BeneficialOwners">
+      <Grid>
+        <Grid.Row>
+          {owners.length !== 0 ? (
+            owners.map(owner => (
+              <Label
+                key={owner.id}
+                as="a"
+                onClick={() => deleteOwner(companyid, owner.id, owner.name)}
+              >
+                {owner.name}
+                <Icon name="delete" />
+              </Label>
+            ))
+          ) : (
+            <p>There are no beneficial owners</p>
+          )}
+        </Grid.Row>
+        <Grid.Row>
+          {addOwnerForm ? (
+            <Form onSubmit={addOwner} size="small">
+              <Form.Group>
+                <Form.Field
+                  inline
+                  control="input"
+                  name="name"
+                  placeholder="Name..."
+                  required
+                />
+                <Button size="mini" type="submit">
+                  Add
+                </Button>
+                <Button
+                  basic
+                  color="red"
+                  size="mini"
+                  type="button"
+                  onClick={() => handleAddOwnerForm()}
+                >
+                  Cancel
+                </Button>
+              </Form.Group>
+            </Form>
+          ) : (
+            <Button
+              size="mini"
+              color='green'
+              onClick={() => handleAddOwnerForm()}
+            >
+              <Icon name="plus" />
+              Add beneficial owner
+            </Button>
+          )}
+        </Grid.Row>
+      </Grid>
     </div>
   );
 };
