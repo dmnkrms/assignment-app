@@ -2,6 +2,8 @@ version: '3'
 services:
   db:
     image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=AssignmentApp
       - POSTGRES_USER=postgres

@@ -15,3 +15,17 @@ COPY . /app
 EXPOSE 3001
 
 CMD bundle exec rails s -p 3001 -b '0.0.0.0'
+
+FROM node:10
+
+RUN mkdir /client
+WORKDIR /client
+COPY ./client/package*.json ./
+COPY . /client
+
+RUN npm install
+RUN npm run build
+
+EXPOSE 3000
+
+CMD npm start

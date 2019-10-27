@@ -3,7 +3,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     proxy({
-      target: 'http://rails:3001',
+      target: 'http://localhost:3001',
       changeOrigin: true,
     })
   );
