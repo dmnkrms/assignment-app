@@ -91,7 +91,7 @@ const CompanyEditForm = ({ match }) => {
         <div className="EditTopRow">
           <Grid stackable columns="equal">
             <Grid.Row>
-              <Grid.Column width={13}>
+              <Grid.Column width={14}>
                 <Header as="h1">
                   <Header.Content>{company.name}</Header.Content>
                 </Header>

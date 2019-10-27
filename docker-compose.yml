@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=AssignmentApp
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+  backend:
+    container_name: rails
+    build: .
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      - PGHOST=db
+      - PGUSER=postgres
+  frontend:
+    container_name: react
+    build: 
+      context: .
+      dockerfile: ./client/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

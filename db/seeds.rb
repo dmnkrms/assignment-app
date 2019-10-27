@@ -1,4 +1,4 @@
-10.times do
+15.times do
   Company.create({
     name: Faker::Company.name,
     address: Faker::Address.street_address,
