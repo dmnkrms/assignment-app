@@ -18,29 +18,12 @@ Application deployed in heroku: [https://applicationch.herokuapp.com/](https://a
 
   
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-  
-
-### Installing
-
-  
-
-To run application localy just clone this repository and run following command:
-
-  
-
-```
-
-rake start
-
-```
+These instructions will get you a copy of the project up and running on your local machine using docker for development and testing purposes. If you want to run it locally then you have to install all dependencies and switch 'http://rails:3001' to 'http://localhost:3001' in ./client/src/setupProxy.js
 
   
 
 ### Docker container
 
-  
 
 To run this application in docker container follow these steps:
 
