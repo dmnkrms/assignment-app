@@ -4,6 +4,7 @@ import CompaniesList from "./components/CompaniesList";
 import Company from "./components/Company";
 import CompanyAddForm from "./components/CompanyAddForm";
 import CompanyEditForm from "./components/CompanyEditForm";
+import NotFound from './components/NotFound';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Container, Grid, Icon } from "semantic-ui-react";
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/company/add" component={CompanyAddForm} />
           <Route path="/company/:id" exact component={Company} />
           <Route path="/company/:id/edit" exact component={CompanyEditForm} />
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </Container>
